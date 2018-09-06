@@ -67,24 +67,26 @@ class CpFieldInspect extends Plugin
      */
     public function init()
     {
-        parent::init();
-        self::$plugin = $this;
-
-        $user = Craft::$app->getUser();
-        $request = Craft::$app->getRequest();
-
-        if (!$user->getIsAdmin() || !$request->getIsCpRequest() || $request->getIsConsoleRequest()) {
-            return;
-        }
-
-        // Handler: EVENT_AFTER_LOAD_PLUGINS
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_LOAD_PLUGINS,
-            function () {
-                $this->doIt();
-            }
-        );
+    	if (CONFIG_ENVIRONMENT === 'DEV' || CONFIG_ENVIRONMENT === 'LOCAL') {
+		    parent::init();
+		    self::$plugin = $this;
+		
+		    $user = Craft::$app->getUser();
+		    $request = Craft::$app->getRequest();
+		
+		    if (!$user->getIsAdmin() || !$request->getIsCpRequest() || $request->getIsConsoleRequest()) {
+			    return;
+		    }
+		
+		    // Handler: EVENT_AFTER_LOAD_PLUGINS
+		    Event::on(
+			    Plugins::class,
+			    Plugins::EVENT_AFTER_LOAD_PLUGINS,
+			    function () {
+				    $this->doIt();
+			    }
+		    );
+	    }
 
 /**
  * Logging in Craft involves using one of the following methods:
