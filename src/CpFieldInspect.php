@@ -67,7 +67,7 @@ class CpFieldInspect extends Plugin
      */
     public function init()
     {
-    	if (CONFIG_ENVIRONMENT === 'DEV' || CONFIG_ENVIRONMENT === 'LOCAL') {
+    	if (CRAFT_ENVIRONMENT === 'dev' || CRAFT_ENVIRONMENT === 'local') {
 		    parent::init();
 		    self::$plugin = $this;
 		
